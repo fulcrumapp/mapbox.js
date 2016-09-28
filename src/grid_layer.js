@@ -9,7 +9,8 @@ var GridLayer = L.Class.extend({
     includes: [L.Mixin.Events, require('./load_tilejson')],
 
     options: {
-        template: function() { return ''; }
+        template: function() { return ''; },
+        request: request
     },
 
     _mouseOn: null,
@@ -185,7 +186,7 @@ var GridLayer = L.Class.extend({
             this._cache[key].push(callback);
         }
 
-        request(this._getTileURL(tilePoint), L.bind(function(err, json) {
+        this.options.request(this._getTileURL(tilePoint), L.bind(function(err, json) {
             var callbacks = this._cache[key];
             this._cache[key] = grid(json);
             for (var i = 0; i < callbacks.length; ++i) {
