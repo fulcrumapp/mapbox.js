@@ -97,7 +97,8 @@ var GridLayer = L.Class.extend({
         this.getData(e.latlng, L.bind(function(data) {
             this.fire('click', {
                 latLng: e.latlng,
-                data: data
+                data: data,
+                originalEvent: e
             });
         }, this));
     },
@@ -108,20 +109,23 @@ var GridLayer = L.Class.extend({
                 if (this._mouseOn) {
                     this.fire('mouseout', {
                         latLng: e.latlng,
-                        data: this._mouseOn
+                        data: this._mouseOn,
+                        originalEvent: e
                     });
                 }
 
                 this.fire('mouseover', {
                     latLng: e.latlng,
-                    data: data
+                    data: data,
+                    originalEvent: e
                 });
 
                 this._mouseOn = data;
             } else {
                 this.fire('mousemove', {
                     latLng: e.latlng,
-                    data: data
+                    data: data,
+                    originalEvent: e
                 });
             }
         }, this));
